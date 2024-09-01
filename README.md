@@ -6,11 +6,13 @@
 
 ### Part 2: Own image from scratch
 
-- Käytin viime vuoden kurssin Express-sovellusta.
+- Käytin viime vuoden kurssin Express-sovellusta. Tietokantapalveluna käytettiin MongoDB:tä.
+
 - Komennot: docker init, docker compose up --watch, docker compose up --build
 - Lisäsin mongo service docker hub sivun ohjeiden mukaan: https://hub.docker.com/_/mongo
+  - Konfigurointi: [compose.yaml](./compose.yaml)
 - Asensin mongoose paketti ja yhdistin mongodb:hen
 - Rakenna ja ajaa: docker compose up --build
   ![docker containers](/screenshots/containers.png)
   ![server logs](/screenshots/server-logs.png)
-  ![mongo express logs](/screenshots/mongo-express-logs.png)
+  ![mongo express logs](/screenshots/mongo-express-container.png)
