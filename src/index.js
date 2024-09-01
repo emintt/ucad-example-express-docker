@@ -5,6 +5,12 @@ import { deleteItem, getItemById, getItems, getQuantity, postItem, putItem } fro
 import { deleteMediaItem, getMedia, getMediaById, postMediaItem, putMediaItem, staticMediaItem } from './media.js';
 import { deleteUser, getNumberOfUsers, getUser, getUserById, postUser, putUser } from './user.js';
 
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import mongoConnect from './utils/db.js';
+dotenv.config();
+// import mongoConnect from './utils/db';
+
 
 const hostname = '0.0.0.0';
 const app = express();
@@ -33,8 +39,8 @@ app.get('/', (req, res) => {
     title: "REST API docs", 
     message: "Landing page using pug",
     info: "Implement a REST API by following  API reference with the mock data included in it",
-    link: "https://github.com/mattpe/ucad/blob/main/assets/media-api-reference-v1.md",
-    mediaApi: "http://127.0.0.1:3000/api/media"
+    // link: "https://github.com/mattpe/ucad/blob/main/assets/media-api-reference-v1.md",
+    // mediaApi: "http://127.0.0.1:3000/api/media"
   };
   res.render('home', values);
 });
@@ -116,8 +122,14 @@ app.put('/api/user/:id', putUser);
 // delete a user
 app.delete('/api/user/:id', deleteUser);
 
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
 
-
+(async () => {
+  try {
+    await mongoConnect();
+    app.listen(port, () => {
+      console.log(`Server running at http://${hostname}:${port}/`);
+    });
+  } catch (error) {
+    console.log('Server error', (error.message));
+  }
+})();
